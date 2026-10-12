@@ -3,142 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inframine — La future plateforme d'infrastructure</title>
-    <meta name="description" content="Inframine : La future plateforme intelligente de gestion et d'orchestration d'infrastructure. Inscrivez-vous pour un accès anticipé.">
+    <title>Inframine — Pilotage d'infrastructure unifié</title>
+    <meta name="description" content="Inframine orchestre, cartographie et surveille vos clusters cloud, bare-metal et hybrides depuis une interface unifiée. Rejoignez la liste d'attente bêta.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f172a'/><polygon points='50,15 85,35 85,65 50,85 15,65 15,35' fill='none' stroke='%2338bdf8' stroke-width='6'/><circle cx='50' cy='50' r='12' fill='%236366f1'/></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='5' fill='%2309101F'/><text x='16' y='23' font-size='18' text-anchor='middle' fill='%23C4963A' font-family='monospace' font-weight='bold'>i</text></svg>">
 </head>
 <body>
-    <!-- Arrière-plan dynamique et lueurs -->
-    <div class="glow-bg glow-1"></div>
-    <div class="glow-bg glow-2"></div>
-    <div class="grid-overlay"></div>
 
-    <div class="page-wrapper">
-        <!-- Navigation Header -->
-        <header class="header">
-            <div class="container nav-content">
-                <a href="#" class="brand-logo">
-                    <span class="logo-icon">
-                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <polygon points="20,4 36,13 36,27 20,36 4,27 4,13" stroke="url(#logo-grad)" stroke-width="2.5" fill="rgba(15, 23, 42, 0.6)"/>
-                            <circle cx="20" cy="20" r="5" fill="#38bdf8"/>
-                            <defs>
-                                <linearGradient id="logo-grad" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#38bdf8"/>
-                                    <stop offset="1" stop-color="#818cf8"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </span>
-                    <span class="brand-text">INFRA<span>MINE</span></span>
-                </a>
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="wordmark" aria-label="Inframine — Accueil">Infra<span>mine</span></a>
+            <nav>
+                <a href="mailto:contact@inframine.me" class="header-link">contact@inframine.me</a>
+            </nav>
+        </div>
+    </header>
 
-                <div class="nav-actions">
-                    <span class="subdomain-badge">portail.inframine.me</span>
-                    <a href="mailto:contact@inframine.me" class="btn-ghost">Contactez-nous</a>
-                </div>
-            </div>
-        </header>
+    <main>
 
-        <!-- Main Hero Section -->
-        <main class="hero-section">
-            <div class="container hero-container">
-                <!-- Status Pill -->
-                <div class="status-pill animate-fade">
-                    <span class="status-dot"></span>
-                    <span class="status-text">Projet en développement actif • Bientôt disponible</span>
-                </div>
+        <!-- ============================================================
+             HERO
+             ============================================================ -->
+        <section class="hero" aria-label="Présentation">
+            <div class="hero-layout">
 
-                <!-- Catchphrase / Hero Title -->
-                <h1 class="hero-title animate-fade">
-                    La future plateforme de <br>
-                    <span class="text-gradient">pilotage & infrastructure</span>
-                </h1>
+                <div class="hero-text">
+                    <h1>Toute votre infrastructure, pilotée depuis une interface.</h1>
+                    <p class="hero-lead">Inframine orchestre vos clusters, cartographie vos services et surveille vos environnements cloud, bare-metal et hybrides en continu.</p>
 
-                <!-- Subtitle / Hook -->
-                <p class="hero-description animate-fade">
-                    Inframine transforme la manière dont vous concevez, déployez et surveillez vos architectures.
-                    Une expérience fluide, sécurisée et taillée pour les projets de nouvelle génération.
-                </p>
+                    <div id="capture-area">
+                        <form id="waitlist-form" novalidate>
+                            <div class="form-row">
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="adresse@domaine.com"
+                                    autocomplete="email"
+                                    required
+                                    aria-label="Adresse e-mail pour la liste d'attente"
+                                >
+                                <button type="submit" id="submit-btn">Rejoindre la liste d'attente</button>
+                            </div>
+                            <p id="form-error" class="form-error" role="alert" aria-live="assertive"></p>
+                        </form>
 
-                <!-- Email Capture Form -->
-                <div class="capture-box animate-fade">
-                    <form id="waitlist-form" class="waitlist-form" novalidate>
-                        <div class="input-wrapper">
-                            <svg class="mail-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect width="20" height="16" x="2" y="4" rx="2"/>
-                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                            </svg>
-                            <input 
-                                type="email" 
-                                id="email-input" 
-                                name="email" 
-                                placeholder="Entrez votre adresse email..." 
-                                required
-                                autocomplete="email"
-                            >
+                        <div id="form-success" class="form-success" hidden>
+                            <span class="success-icon" aria-hidden="true">✓</span>
+                            <span id="success-text"></span>
                         </div>
-                        <button type="submit" id="submit-btn" class="btn-primary">
-                            <span>M'avertir du lancement</span>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                <polyline points="12 5 19 12 12 19"></polyline>
-                            </svg>
-                        </button>
-                    </form>
 
-                    <!-- Feedback messages -->
-                    <div id="form-feedback" class="form-feedback" role="alert" aria-live="polite"></div>
-                    
-                    <p class="form-disclaimer">
-                        🔒 Pas de spam. Uniquement les invitations pour l'accès anticipé bêta.
-                    </p>
+                        <p class="form-note">Accès bêta limité. Pas de spam.</p>
+                    </div>
                 </div>
 
-                <!-- Teaser Cards -->
-                <div class="features-grid animate-fade">
-                    <div class="feature-card">
-                        <div class="card-icon">⚡</div>
-                        <h3>Déploiement Simplifié</h3>
-                        <p>Orchestrez et provisionnez vos environnements avec rapidité et fiabilité.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="card-icon">🛡️</div>
-                        <h3>Sécurité Robuste</h3>
-                        <p>Contrôle granulaire des accès et isolation maximale dès la conception.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="card-icon">📈</div>
-                        <h3>Observabilité Totale</h3>
-                        <p>Métriques temps réel et alertes prédictives sur une interface unifiée.</p>
-                    </div>
+                <!-- Topology diagram — the visual language of infrastructure -->
+                <div class="hero-diagram" aria-hidden="true">
+                    <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <!-- Dot-grid background — datacenter graph paper -->
+                            <pattern id="dot-grid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                                <circle cx="0.75" cy="0.75" r="0.75" fill="#1D2B3A"/>
+                            </pattern>
+                        </defs>
+
+                        <rect width="400" height="300" fill="url(#dot-grid)" opacity="0.5"/>
+
+                        <!-- ── Connection lines (draw in first) ── -->
+                        <!-- Layer 1: ingress → api -->
+                        <line class="tl" style="--d:0s"     x1="200" y1="38"  x2="100" y2="90"  stroke="#1D2B3A" stroke-width="1"/>
+                        <line class="tl" style="--d:0.1s"   x1="200" y1="38"  x2="300" y2="90"  stroke="#1D2B3A" stroke-width="1"/>
+                        <!-- Layer 2: api → workers + core -->
+                        <line class="tl" style="--d:0.22s"  x1="100" y1="110" x2="50"  y2="165" stroke="#1D2B3A" stroke-width="1"/>
+                        <line class="tl" style="--d:0.32s"  x1="100" y1="110" x2="200" y2="165" stroke="#C4963A" stroke-width="1" opacity="0.5"/>
+                        <line class="tl" style="--d:0.42s"  x1="300" y1="110" x2="200" y2="165" stroke="#C4963A" stroke-width="1" opacity="0.5"/>
+                        <line class="tl" style="--d:0.52s"  x1="300" y1="110" x2="350" y2="165" stroke="#1D2B3A" stroke-width="1"/>
+                        <!-- Layer 3: workers + core → db -->
+                        <line class="tl" style="--d:0.64s"  x1="50"  y1="185" x2="120" y2="245" stroke="#1D2B3A" stroke-width="1"/>
+                        <line class="tl" style="--d:0.74s"  x1="200" y1="185" x2="120" y2="245" stroke="#C4963A" stroke-width="1" opacity="0.4"/>
+                        <line class="tl" style="--d:0.84s"  x1="200" y1="185" x2="280" y2="245" stroke="#C4963A" stroke-width="1" opacity="0.4"/>
+                        <line class="tl" style="--d:0.94s"  x1="350" y1="185" x2="280" y2="245" stroke="#1D2B3A" stroke-width="1"/>
+
+                        <!-- ── Nodes (appear after lines) ── -->
+
+                        <!-- ingress -->
+                        <g class="tn" style="--d:1.5s">
+                            <rect x="172" y="18" width="56" height="20" rx="2" fill="#111827" stroke="#1D2B3A" stroke-width="0.75"/>
+                            <text x="200" y="28" text-anchor="middle" dominant-baseline="central" fill="#6E7F91" font-size="8" font-family="IBM Plex Mono, monospace">ingress</text>
+                        </g>
+
+                        <!-- api-01 -->
+                        <g class="tn" style="--d:1.6s">
+                            <rect x="72" y="90" width="56" height="20" rx="2" fill="#111827" stroke="#1D2B3A" stroke-width="0.75"/>
+                            <text x="100" y="100" text-anchor="middle" dominant-baseline="central" fill="#6E7F91" font-size="8" font-family="IBM Plex Mono, monospace">api-01</text>
+                        </g>
+
+                        <!-- api-02 -->
+                        <g class="tn" style="--d:1.7s">
+                            <rect x="272" y="90" width="56" height="20" rx="2" fill="#111827" stroke="#1D2B3A" stroke-width="0.75"/>
+                            <text x="300" y="100" text-anchor="middle" dominant-baseline="central" fill="#6E7F91" font-size="8" font-family="IBM Plex Mono, monospace">api-02</text>
+                        </g>
+
+                        <!-- worker-01 -->
+                        <g class="tn" style="--d:1.8s">
+                            <rect x="14" y="165" width="72" height="20" rx="2" fill="#111827" stroke="#1D2B3A" stroke-width="0.75"/>
+                            <text x="50" y="175" text-anchor="middle" dominant-baseline="central" fill="#6E7F91" font-size="8" font-family="IBM Plex Mono, monospace">worker-01</text>
+                        </g>
+
+                        <!-- inframine CORE — copper, this is the product itself -->
+                        <g class="tn" style="--d:1.9s">
+                            <rect x="158" y="165" width="84" height="20" rx="2" fill="#1A1407" stroke="#C4963A" stroke-width="1"/>
+                            <text x="200" y="175" text-anchor="middle" dominant-baseline="central" fill="#C4963A" font-size="8" font-family="IBM Plex Mono, monospace">inframine</text>
+                        </g>
+
+                        <!-- worker-02 -->
+                        <g class="tn" style="--d:2.0s">
+                            <rect x="314" y="165" width="72" height="20" rx="2" fill="#111827" stroke="#1D2B3A" stroke-width="0.75"/>
+                            <text x="350" y="175" text-anchor="middle" dominant-baseline="central" fill="#6E7F91" font-size="8" font-family="IBM Plex Mono, monospace">worker-02</text>
+                        </g>
+
+                        <!-- db-primary -->
+                        <g class="tn" style="--d:2.1s">
+                            <rect x="84" y="245" width="72" height="20" rx="2" fill="#111827" stroke="#1D2B3A" stroke-width="0.75"/>
+                            <text x="120" y="255" text-anchor="middle" dominant-baseline="central" fill="#6E7F91" font-size="8" font-family="IBM Plex Mono, monospace">db-primary</text>
+                        </g>
+
+                        <!-- db-replica -->
+                        <g class="tn" style="--d:2.2s">
+                            <rect x="244" y="245" width="72" height="20" rx="2" fill="#111827" stroke="#1D2B3A" stroke-width="0.75"/>
+                            <text x="280" y="255" text-anchor="middle" dominant-baseline="central" fill="#6E7F91" font-size="8" font-family="IBM Plex Mono, monospace">db-replica</text>
+                        </g>
+                    </svg>
                 </div>
+
             </div>
-        </main>
+        </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container footer-content">
-                <div class="footer-left">
-                    <p>&copy; <span id="current-year">2026</span> <strong>Inframine</strong>. Tous droits réservés.</p>
+        <!-- ============================================================
+             SPECS
+             ============================================================ -->
+        <section class="specs" aria-label="Fonctionnalités">
+            <div class="specs-inner">
+
+                <div class="spec-item">
+                    <h2>Orchestration</h2>
+                    <p>Provisionnez et gérez vos clusters sur n'importe quel fournisseur cloud ou environnement bare-metal depuis une interface unique. Compatible avec vos outils existants. Pas de migration forcée.</p>
                 </div>
-                <div class="footer-right">
-                    <span>Des questions ?</span>
-                    <a href="mailto:contact@inframine.me" class="contact-link">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect width="20" height="16" x="2" y="4" rx="2"/>
-                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                        </svg>
-                        contact@inframine.me
-                    </a>
+
+                <div class="spec-item">
+                    <h2>Observabilité</h2>
+                    <p>Chaque service, chaque connexion, chaque flux visualisé en temps réel. Des alertes précises sur les vraies anomalies : moins de bruit, plus de signal.</p>
                 </div>
+
+                <div class="spec-item">
+                    <h2>Contrôle d'accès</h2>
+                    <p>Des politiques granulaires au niveau namespace, service et opération. Audit trail complet. Conforme par construction, pas par documentation.</p>
+                </div>
+
             </div>
-        </footer>
-    </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <span>&copy; <span id="year"></span> Inframine</span>
+            <a href="mailto:contact@inframine.me">contact@inframine.me</a>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
