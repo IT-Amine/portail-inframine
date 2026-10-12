@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inframine — Pilotage d'infrastructure unifié</title>
-    <meta name="description" content="Inframine orchestre, cartographie et surveille vos clusters cloud, bare-metal et hybrides depuis une interface unifiée. Rejoignez la liste d'attente bêta.">
+    <title>Inframine — Pilotage & Orchestration d'Infrastructure Souveraine</title>
+    <meta name="description" content="Inframine orchestre, cartographie et surveille vos environnements cloud et bare-metal. Conforme RGPD, recommandations ANSSI et zéro cookie tiers.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='5' fill='%2309101F'/><text x='16' y='23' font-size='18' text-anchor='middle' fill='%23C4963A' font-family='monospace' font-weight='bold'>i</text></svg>">
 </head>
 <body>
 
+    <!-- Header & Navigation -->
     <header class="site-header">
         <div class="header-inner">
             <a href="/" class="wordmark" aria-label="Inframine — Accueil">Infra<span>mine</span></a>
-            <nav>
-                <a href="mailto:contact@inframine.me" class="header-link">contact@inframine.me</a>
+            <nav class="nav-menu" aria-label="Navigation principale">
+                <a href="#architecture" class="nav-link">Architecture</a>
+                <a href="#securite" class="nav-link">Conformité & Sécurité</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="mailto:contact@inframine.me" class="nav-link nav-contact">contact@inframine.me</a>
             </nav>
         </div>
     </header>
@@ -25,14 +29,19 @@
     <main>
 
         <!-- ============================================================
-             HERO
+             1. HERO SECTION
              ============================================================ -->
-        <section class="hero" aria-label="Présentation">
+        <section class="hero" aria-label="Présentation générale">
             <div class="hero-layout">
 
                 <div class="hero-text">
+                    <div class="trust-indicator" aria-label="Statut du projet et conformité">
+                        <span class="trust-dot"></span>
+                        <span>Plateforme en développement • Hébergement UE • Zéro traceur tiers</span>
+                    </div>
+
                     <h1>Toute votre infrastructure, pilotée depuis une interface.</h1>
-                    <p class="hero-lead">Inframine orchestre vos clusters, cartographie vos services et surveille vos environnements cloud, bare-metal et hybrides en continu.</p>
+                    <p class="hero-lead">Inframine orchestre vos clusters, cartographie vos services et surveille vos environnements cloud, bare-metal et hybrides en continu avec un haut niveau d'exigence en souveraineté.</p>
 
                     <div id="capture-area">
                         <form id="waitlist-form" novalidate>
@@ -41,13 +50,25 @@
                                     type="email"
                                     id="email"
                                     name="email"
-                                    placeholder="adresse@domaine.com"
+                                    placeholder="adresse@entreprise.com"
                                     autocomplete="email"
                                     required
-                                    aria-label="Adresse e-mail pour la liste d'attente"
+                                    aria-label="Adresse e-mail professionnelle pour la liste d'attente"
                                 >
-                                <button type="submit" id="submit-btn">Rejoindre la liste d'attente</button>
+                                <button type="submit" id="submit-btn">Demander l'accès anticipé</button>
                             </div>
+
+                            <!-- Consentement explicite RGPD / CNIL -->
+                            <div class="consent-block">
+                                <label class="consent-label" for="rgpd-consent">
+                                    <input type="checkbox" id="rgpd-consent" name="rgpd_consent" required>
+                                    <span class="consent-text">
+                                        J'accepte d'être recontacté(e) pour le lancement de la bêta Inframine. Données traitées conformément à notre 
+                                        <button type="button" class="inline-link js-open-modal" data-modal="modal-privacy">politique de confidentialité</button>.
+                                    </span>
+                                </label>
+                            </div>
+
                             <p id="form-error" class="form-error" role="alert" aria-live="assertive"></p>
                         </form>
 
@@ -56,15 +77,14 @@
                             <span id="success-text"></span>
                         </div>
 
-                        <p class="form-note">Accès bêta limité. Pas de spam.</p>
+                        <p class="form-note">Minimisation des données (Art. 5 RGPD) : adresse e-mail uniquement. Aucun cookie tiers déposé.</p>
                     </div>
                 </div>
 
-                <!-- Topology diagram — the visual language of infrastructure -->
+                <!-- Diagramme de topologie SVG animé (Langage visuel d'infrastructure) -->
                 <div class="hero-diagram" aria-hidden="true">
                     <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <defs>
-                            <!-- Dot-grid background — datacenter graph paper -->
                             <pattern id="dot-grid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
                                 <circle cx="0.75" cy="0.75" r="0.75" fill="#1D2B3A"/>
                             </pattern>
@@ -72,66 +92,55 @@
 
                         <rect width="400" height="300" fill="url(#dot-grid)" opacity="0.5"/>
 
-                        <!-- ── Connection lines (draw in first) ── -->
-                        <!-- Layer 1: ingress → api -->
+                        <!-- Lignes de topologie -->
                         <line class="tl" style="--d:0s"     x1="200" y1="38"  x2="100" y2="90"  stroke="#1D2B3A" stroke-width="1"/>
                         <line class="tl" style="--d:0.1s"   x1="200" y1="38"  x2="300" y2="90"  stroke="#1D2B3A" stroke-width="1"/>
-                        <!-- Layer 2: api → workers + core -->
                         <line class="tl" style="--d:0.22s"  x1="100" y1="110" x2="50"  y2="165" stroke="#1D2B3A" stroke-width="1"/>
                         <line class="tl" style="--d:0.32s"  x1="100" y1="110" x2="200" y2="165" stroke="#C4963A" stroke-width="1" opacity="0.5"/>
                         <line class="tl" style="--d:0.42s"  x1="300" y1="110" x2="200" y2="165" stroke="#C4963A" stroke-width="1" opacity="0.5"/>
                         <line class="tl" style="--d:0.52s"  x1="300" y1="110" x2="350" y2="165" stroke="#1D2B3A" stroke-width="1"/>
-                        <!-- Layer 3: workers + core → db -->
                         <line class="tl" style="--d:0.64s"  x1="50"  y1="185" x2="120" y2="245" stroke="#1D2B3A" stroke-width="1"/>
                         <line class="tl" style="--d:0.74s"  x1="200" y1="185" x2="120" y2="245" stroke="#C4963A" stroke-width="1" opacity="0.4"/>
                         <line class="tl" style="--d:0.84s"  x1="200" y1="185" x2="280" y2="245" stroke="#C4963A" stroke-width="1" opacity="0.4"/>
                         <line class="tl" style="--d:0.94s"  x1="350" y1="185" x2="280" y2="245" stroke="#1D2B3A" stroke-width="1"/>
 
-                        <!-- ── Nodes (appear after lines) ── -->
-
-                        <!-- ingress -->
+                        <!-- Noeuds de service -->
                         <g class="tn" style="--d:1.5s">
                             <rect x="172" y="18" width="56" height="20" rx="2" fill="#111827" stroke="#1D2B3A" stroke-width="0.75"/>
                             <text x="200" y="28" text-anchor="middle" dominant-baseline="central" fill="#6E7F91" font-size="8" font-family="IBM Plex Mono, monospace">ingress</text>
                         </g>
 
-                        <!-- api-01 -->
                         <g class="tn" style="--d:1.6s">
                             <rect x="72" y="90" width="56" height="20" rx="2" fill="#111827" stroke="#1D2B3A" stroke-width="0.75"/>
                             <text x="100" y="100" text-anchor="middle" dominant-baseline="central" fill="#6E7F91" font-size="8" font-family="IBM Plex Mono, monospace">api-01</text>
                         </g>
 
-                        <!-- api-02 -->
                         <g class="tn" style="--d:1.7s">
                             <rect x="272" y="90" width="56" height="20" rx="2" fill="#111827" stroke="#1D2B3A" stroke-width="0.75"/>
                             <text x="300" y="100" text-anchor="middle" dominant-baseline="central" fill="#6E7F91" font-size="8" font-family="IBM Plex Mono, monospace">api-02</text>
                         </g>
 
-                        <!-- worker-01 -->
                         <g class="tn" style="--d:1.8s">
                             <rect x="14" y="165" width="72" height="20" rx="2" fill="#111827" stroke="#1D2B3A" stroke-width="0.75"/>
                             <text x="50" y="175" text-anchor="middle" dominant-baseline="central" fill="#6E7F91" font-size="8" font-family="IBM Plex Mono, monospace">worker-01</text>
                         </g>
 
-                        <!-- inframine CORE — copper, this is the product itself -->
+                        <!-- Noeud central Inframine -->
                         <g class="tn" style="--d:1.9s">
                             <rect x="158" y="165" width="84" height="20" rx="2" fill="#1A1407" stroke="#C4963A" stroke-width="1"/>
                             <text x="200" y="175" text-anchor="middle" dominant-baseline="central" fill="#C4963A" font-size="8" font-family="IBM Plex Mono, monospace">inframine</text>
                         </g>
 
-                        <!-- worker-02 -->
                         <g class="tn" style="--d:2.0s">
                             <rect x="314" y="165" width="72" height="20" rx="2" fill="#111827" stroke="#1D2B3A" stroke-width="0.75"/>
                             <text x="350" y="175" text-anchor="middle" dominant-baseline="central" fill="#6E7F91" font-size="8" font-family="IBM Plex Mono, monospace">worker-02</text>
                         </g>
 
-                        <!-- db-primary -->
                         <g class="tn" style="--d:2.1s">
                             <rect x="84" y="245" width="72" height="20" rx="2" fill="#111827" stroke="#1D2B3A" stroke-width="0.75"/>
                             <text x="120" y="255" text-anchor="middle" dominant-baseline="central" fill="#6E7F91" font-size="8" font-family="IBM Plex Mono, monospace">db-primary</text>
                         </g>
 
-                        <!-- db-replica -->
                         <g class="tn" style="--d:2.2s">
                             <rect x="244" y="245" width="72" height="20" rx="2" fill="#111827" stroke="#1D2B3A" stroke-width="0.75"/>
                             <text x="280" y="255" text-anchor="middle" dominant-baseline="central" fill="#6E7F91" font-size="8" font-family="IBM Plex Mono, monospace">db-replica</text>
@@ -143,37 +152,269 @@
         </section>
 
         <!-- ============================================================
-             SPECS
+             2. ARCHITECTURE TECHNIQUE
              ============================================================ -->
-        <section class="specs" aria-label="Fonctionnalités">
-            <div class="specs-inner">
+        <section id="architecture" class="specs-section" aria-label="Spécifications architecturales">
+            <div class="section-container">
+                <header class="section-header">
+                    <h2>Architecture & Spécifications</h2>
+                    <p class="section-desc">Conçu pour les environnements de production exigeants, sans compromis sur l'observabilité ni la résilience.</p>
+                </header>
 
-                <div class="spec-item">
-                    <h2>Orchestration</h2>
-                    <p>Provisionnez et gérez vos clusters sur n'importe quel fournisseur cloud ou environnement bare-metal depuis une interface unique. Compatible avec vos outils existants. Pas de migration forcée.</p>
+                <div class="specs-table">
+                    <div class="spec-row">
+                        <div class="spec-meta">Orchestration Hybride</div>
+                        <div class="spec-body">
+                            <h3>Contrôle unifié multi-fournisseurs</h3>
+                            <p>Provisionnez et pilotez vos clusters sur le cloud public, vos infrastructures souveraines (OVHcloud, Scaleway) ou vos serveurs bare-metal. Intégration native avec vos pipelines CI/CD existants, sans réécriture de manifeste.</p>
+                        </div>
+                    </div>
+
+                    <div class="spec-row">
+                        <div class="spec-meta">Observabilité</div>
+                        <div class="spec-body">
+                            <h3>Cartographie dynamique des flux de service</h3>
+                            <p>Chaque appel, chaque latence réseau et chaque anomalie d'infrastructure sont corrélés en temps réel. Analyse télémétrique fine pour extraire le signal opérationnel et éliminer le bruit d'alerte.</p>
+                        </div>
+                    </div>
+
+                    <div class="spec-row">
+                        <div class="spec-meta">Contrôle d'Accès</div>
+                        <div class="spec-body">
+                            <h3>Isolation Zero-Trust & RBAC granulaire</h3>
+                            <p>Politiques de sécurité au niveau du namespace, du pod et de l'opération d'infrastructure. Traçabilité complète des actions d'administration par journal d'audit crypté et infalsifiable.</p>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="spec-item">
-                    <h2>Observabilité</h2>
-                    <p>Chaque service, chaque connexion, chaque flux visualisé en temps réel. Des alertes précises sur les vraies anomalies : moins de bruit, plus de signal.</p>
+        <!-- ============================================================
+             3. SÉCURITÉ, RGPD, CNIL & ANSSI
+             ============================================================ -->
+        <section id="securite" class="specs-section" aria-label="Cadre de sécurité et conformité">
+            <div class="section-container">
+                <header class="section-header">
+                    <h2>Sécurité & Conformité Normative</h2>
+                    <p class="section-desc">Nos engagements techniques alignés sur les exigences de la CNIL et les recommandations de l'ANSSI.</p>
+                </header>
+
+                <div class="specs-table">
+                    <div class="spec-row">
+                        <div class="spec-meta">RGPD & CNIL</div>
+                        <div class="spec-body">
+                            <h3>Protection des données dès la conception (Privacy by Design)</h3>
+                            <p>Minimisation stricte des données collectées (Art. 5 RGPD). Aucune commercialisation, aucun transfert de données en dehors de l'Espace Économique Européen (EEE). Exercice direct de vos droits d'accès, de rectification et d'effacement sous 48h sur simple demande à contact@inframine.me.</p>
+                        </div>
+                    </div>
+
+                    <div class="spec-row">
+                        <div class="spec-meta">Guide ANSSI</div>
+                        <div class="spec-body">
+                            <h3>Hygiène informatique & Chiffrement fort</h3>
+                            <p>Chiffrement systématique en transit (TLS 1.3 forcé, HSTS avec préchargement) et au repos (AES-256). Cloisonnement strict des environnements, contrôle d'intégrité et gestion des secrets sans stockage en clair conformément aux recommandations de l'ANSSI.</p>
+                        </div>
+                    </div>
+
+                    <div class="spec-row">
+                        <div class="spec-meta">Zéro Traceur</div>
+                        <div class="spec-body">
+                            <h3>Navigation exempte de cookies tiers et d'outils intrusifs</h3>
+                            <p>Ce portail ne dépose aucun cookie de profilage, publicitaire ou de tracking tiers. Conformément aux lignes directrices de la CNIL, aucun bandeau de cookies perturbateur n'est requis.</p>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="spec-item">
-                    <h2>Contrôle d'accès</h2>
-                    <p>Des politiques granulaires au niveau namespace, service et opération. Audit trail complet. Conforme par construction, pas par documentation.</p>
+        <!-- ============================================================
+             4. FAQ TECHNIQUE & OPÉRATIONNELLE
+             ============================================================ -->
+        <section id="faq" class="specs-section" aria-label="Foire aux questions">
+            <div class="section-container">
+                <header class="section-header">
+                    <h2>Questions fréquentes</h2>
+                    <p class="section-desc">Tout ce que les équipes techniques souhaitent savoir avant d'adopter Inframine.</p>
+                </header>
+
+                <div class="faq-list">
+                    <details class="faq-item">
+                        <summary class="faq-question">Quels types d'environnements Inframine peut-il orchestrer ?</summary>
+                        <div class="faq-answer">
+                            <p>Inframine est conçu pour orchestrer des parcs hétérogènes : clusters Kubernetes managés (EKS, GKE, AKS, Scaleway Kapsule, OVHcloud MKS), machines virtuelles sur cloud public/privé, ainsi que serveurs bare-metal sur site ou en datacenter.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-question">Comment s'organise l'accès anticipé bêta ?</summary>
+                        <div class="faq-answer">
+                            <p>L'accès anticipé est gratuit pour les organisations partenaires sélectionnées. Il donne un accès complet à la plateforme et à un canal d'échange technique direct avec les concepteurs afin d'adapter l'outil à vos besoins réels.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-question">Comment mes données d'inscription sont-elles protégées ?</summary>
+                        <div class="faq-answer">
+                            <p>Votre adresse e-mail est uniquement utilisée pour vous transmettre les invitations à la bêta et les informations sur la plateforme. Elle n'est transmise à aucun organisme tiers et peut être supprimée à tout moment par simple requête à contact@inframine.me.</p>
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-question">Sous quelle licence le code de ce portail est-il distribué ?</summary>
+                        <div class="faq-answer">
+                            <p>Ce portail web est distribué sous licence libre et ouverte <button type="button" class="inline-link js-open-modal" data-modal="modal-license">MIT License</button>. Vous pouvez auditer son code directement sur le dépôt GitHub officiel.</p>
+                        </div>
+                    </details>
                 </div>
+            </div>
+        </section>
 
+        <!-- ============================================================
+             5. SECONDARY CTA (CONVERSION BAS DE PAGE)
+             ============================================================ -->
+        <section class="bottom-cta" aria-label="Inscription finale">
+            <div class="section-container bottom-cta-inner">
+                <h2>Rejoignez le programme d'accès anticipé</h2>
+                <p>Recevez votre invitation prioritaire pour tester Inframine sur vos environnements.</p>
+                <a href="#capture-area" class="btn-cta-anchor">Demander une invitation prioritaire</a>
             </div>
         </section>
 
     </main>
 
+    <!-- Footer institutionnel & légal -->
     <footer class="site-footer">
         <div class="footer-inner">
-            <span>&copy; <span id="year"></span> Inframine</span>
-            <a href="mailto:contact@inframine.me">contact@inframine.me</a>
+            <div class="footer-left">
+                <span>&copy; <span id="year">2026</span> Inframine — Amine KADA.</span>
+                <span class="footer-license">Code sous <button type="button" class="footer-link js-open-modal" data-modal="modal-license">Licence MIT</button>.</span>
+            </div>
+
+            <nav class="footer-links" aria-label="Liens légaux">
+                <button type="button" class="footer-link js-open-modal" data-modal="modal-legal">Mentions légales</button>
+                <button type="button" class="footer-link js-open-modal" data-modal="modal-privacy">Politique de confidentialité (RGPD/CNIL)</button>
+                <a href="mailto:contact@inframine.me" class="footer-link">contact@inframine.me</a>
+            </nav>
         </div>
     </footer>
+
+    <!-- ============================================================
+         MODALES LÉGALES NATIVES (HTML5 <dialog> ACCESSIBLES)
+         ============================================================ -->
+
+    <!-- Dialogue : Mentions Légales -->
+    <dialog id="modal-legal" class="legal-dialog" aria-labelledby="legal-title">
+        <div class="dialog-card">
+            <header class="dialog-header">
+                <h3 id="legal-title">Mentions Légales</h3>
+                <button type="button" class="dialog-close js-close-modal" aria-label="Fermer la fenêtre">✕</button>
+            </header>
+            <div class="dialog-body">
+                <h4>1. Éditeur de la plateforme</h4>
+                <p>Le site <strong>portail.inframine.me</strong> et le projet <strong>Inframine</strong> sont édités par :<br>
+                <strong>Inframine</strong> — Fondateur & Responsable de publication : Amine KADA.<br>
+                Contact électronique : <a href="mailto:contact@inframine.me">contact@inframine.me</a></p>
+
+                <h4>2. Hébergement</h4>
+                <p>Le site statique est hébergé par :<br>
+                <strong>GitHub Inc.</strong> — 88 Colin P Kelly Jr St, San Francisco, CA 94107, États-Unis.<br>
+                Distribution et sécurisation DNS / CDN :<br>
+                <strong>Cloudflare Inc.</strong> — 101 Townsend St, San Francisco, CA 94107, États-Unis (Points de présence en France et dans l'Union Européenne).</p>
+
+                <h4>3. Propriété intellectuelle & Licence</h4>
+                <p>L'ensemble du code source de cette interface est mis à disposition du public sous <strong>Licence MIT</strong>. La dénomination commerciale et la marque <em>Inframine</em> restent la propriété exclusive de leur titulaire.</p>
+
+                <h4>4. Loi applicable</h4>
+                <p>Le présent service est soumis aux dispositions de la législation française, notamment la Loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique (LCEN).</p>
+            </div>
+            <footer class="dialog-footer">
+                <button type="button" class="dialog-btn js-close-modal">Fermer</button>
+            </footer>
+        </div>
+    </dialog>
+
+    <!-- Dialogue : Politique de Confidentialité (RGPD, CNIL, ANSSI) -->
+    <dialog id="modal-privacy" class="legal-dialog" aria-labelledby="privacy-title">
+        <div class="dialog-card">
+            <header class="dialog-header">
+                <h3 id="privacy-title">Politique de Confidentialité & Protection des Données</h3>
+                <button type="button" class="dialog-close js-close-modal" aria-label="Fermer la fenêtre">✕</button>
+            </header>
+            <div class="dialog-body">
+                <p class="dialog-intro">Inframine s'engage à garantir un niveau élevé de protection de vos données personnelles, en stricte conformité avec le Règlement Général sur la Protection des Données (RGPD 2016/679), la Loi Informatique et Libertés ainsi que les recommandations de la CNIL et de l'ANSSI.</p>
+
+                <h4>1. Responsable du traitement</h4>
+                <p>Le responsable du traitement des données est Inframine (contact : <a href="mailto:contact@inframine.me">contact@inframine.me</a>).</p>
+
+                <h4>2. Données collectées & Principe de minimisation</h4>
+                <p>En vertu du principe de minimisation (Art. 5.1.c du RGPD), seule la donnée strictement nécessaire est recueillie : votre <strong>adresse e-mail professionnelle</strong>.</p>
+
+                <h4>3. Finalité et base légale du traitement</h4>
+                <p>Le traitement a pour unique finalité la gestion de la liste d'attente bêta et l'envoi d'informations relatives au lancement de la plateforme Inframine. La base légale de ce traitement est votre <strong>consentement explicite</strong> (Art. 6.1.a du RGPD), recueilli au moment de votre inscription via la case à cocher dédiée.</p>
+
+                <h4>4. Durée de conservation</h4>
+                <p>Vos données sont conservées pour une durée maximale de 36 mois à compter de votre inscription ou jusqu'à votre demande expresse de désinscription, après quoi elles sont définitivement purgées.</p>
+
+                <h4>5. Mesures de sécurité (Recommandations ANSSI)</h4>
+                <p>Conformément aux préconisations de l'ANSSI :
+                <ul>
+                    <li>Chiffrement systématique des flux via TLS 1.3 et forçage HSTS avec préchargement.</li>
+                    <li>Stockage sécurisé et absence de transfert commercial vers des acteurs tiers.</li>
+                    <li>Architecture sans base de données exposée publiquement.</li>
+                </ul>
+                </p>
+
+                <h4>6. Absence de cookies tiers (CNIL)</h4>
+                <p>Ce site fonctionne sans aucun traceur publicitaire, pixel de pistage ou cookie tiers d'analyse comportementale. Aucun consentement de cookie n'est requis car aucun traceur n'est installé sur votre terminal.</p>
+
+                <h4>7. Vos droits (CNIL / RGPD)</h4>
+                <p>Conformément aux articles 15 à 22 du RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation du traitement et de retrait de votre consentement.<br>
+                Pour exercer ces droits, adressez simplement un e-mail à : <strong><a href="mailto:contact@inframine.me">contact@inframine.me</a></strong>.<br>
+                Vous conservez également le droit d'introduire une réclamation auprès de l'autorité de contrôle française : la <strong>Commission Nationale de l'Informatique et des Libertés (CNIL)</strong> sur <a href="https://www.cnil.fr" target="_blank" rel="noopener">cnil.fr</a>.</p>
+            </div>
+            <footer class="dialog-footer">
+                <button type="button" class="dialog-btn js-close-modal">Fermer</button>
+            </footer>
+        </div>
+    </dialog>
+
+    <!-- Dialogue : Licence MIT -->
+    <dialog id="modal-license" class="legal-dialog" aria-labelledby="license-title">
+        <div class="dialog-card">
+            <header class="dialog-header">
+                <h3 id="license-title">MIT License</h3>
+                <button type="button" class="dialog-close js-close-modal" aria-label="Fermer la fenêtre">✕</button>
+            </header>
+            <div class="dialog-body">
+                <pre class="license-text">
+MIT License
+
+Copyright (c) 2026 Inframine - Amine KADA
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+                </pre>
+            </div>
+            <footer class="dialog-footer">
+                <button type="button" class="dialog-btn js-close-modal">Fermer</button>
+            </footer>
+        </div>
+    </dialog>
 
     <script src="script.js"></script>
 </body>

@@ -1,21 +1,29 @@
 /* =====================================================================
    INFRAMINE — style.css
-   Design: IBM Plex Sans (300/400/600) + IBM Plex Mono for node labels
-   Palette: deep navy base, copper accent (ore + signal amber)
+   Direction artistique : Ingénierie & Souveraineté
+   Typographie : IBM Plex Sans (300/400/500/600) + IBM Plex Mono (noeuds, refs)
+   Palette : Fond marine profond (#09101F), Surface (#111827), Cuivre (#C4963A)
+   Conformité : RGPD, CNIL, ANSSI, Accessibilité WCAG AA
    ===================================================================== */
 
 /* ── 1. Variables & Reset ────────────────────────────────────────── */
 :root {
     --bg:         #09101F;
     --surface:    #111827;
+    --surface-elevated: #162032;
     --border:     #1D2B3A;
+    --border-subtle: rgba(29, 43, 58, 0.6);
     --text:       #D4DDE8;
+    --text-bright: #FFFFFF;
     --muted:      #6E7F91;
+    --muted-light:#8E9FA5;
     --copper:     #C4963A;
     --copper-hi:  #D4A94A;
-    --sans:       'IBM Plex Sans', system-ui, -apple-system, sans-serif;
-    --mono:       'IBM Plex Mono', monospace;
-    --max-w:      1200px;
+    --copper-dim: rgba(196, 150, 58, 0.15);
+    --error:      #E07575;
+    --sans:       'IBM Plex Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --mono:       'IBM Plex Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --max-w:      1160px;
     --pad-x:      2rem;
 }
 
@@ -48,13 +56,21 @@ a {
     text-decoration: none;
 }
 
+button {
+    font-family: inherit;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
 
-/* ── 2. Header ───────────────────────────────────────────────────── */
+/* ── 2. Header & Navigation ──────────────────────────────────────── */
 .site-header {
     position: sticky;
     top: 0;
-    z-index: 20;
-    background: var(--bg);
+    z-index: 50;
+    background: rgba(9, 16, 31, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
 }
 
@@ -70,40 +86,53 @@ a {
 .wordmark {
     font-family: var(--sans);
     font-weight: 600;
-    font-size: 1rem;
-    letter-spacing: -0.01em;
-    color: var(--text);
+    font-size: 1.125rem;
+    letter-spacing: -0.02em;
+    color: var(--text-bright);
     line-height: 1;
 }
 
 .wordmark span {
-    /* "mine" in copper — brand identity, not a headline accent */
     color: var(--copper);
 }
 
-.header-link {
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+}
+
+.nav-link {
     font-size: 0.875rem;
     font-weight: 400;
     color: var(--muted);
     transition: color 0.18s ease;
 }
 
-.header-link:hover {
-    color: var(--text);
+.nav-link:hover {
+    color: var(--text-bright);
 }
 
+.nav-contact {
+    color: var(--copper);
+}
 
-/* ── 3. Hero ─────────────────────────────────────────────────────── */
+.nav-contact:hover {
+    color: var(--copper-hi);
+}
+
+/* ── 3. Hero Section ─────────────────────────────────────────────── */
 .hero {
-    min-height: calc(100vh - 57px);
+    min-height: calc(100vh - 65px);
     display: flex;
     align-items: center;
+    border-bottom: 1px solid var(--border);
 }
 
 .hero-layout {
     display: grid;
     grid-template-columns: 1fr 400px;
-    gap: 4rem;
+    gap: 4.5rem;
     align-items: center;
     max-width: var(--max-w);
     margin: 0 auto;
@@ -111,18 +140,36 @@ a {
     width: 100%;
 }
 
-.hero-text {
-    /* constrains content naturally within the left column */
+.trust-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 0.75rem;
+    background: rgba(29, 43, 58, 0.45);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-size: 0.775rem;
+    font-family: var(--mono);
+    color: var(--muted-light);
+    margin-bottom: 1.5rem;
+}
+
+.trust-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--copper);
+    box-shadow: 0 0 6px var(--copper);
 }
 
 h1 {
-    font-size: clamp(1.875rem, 3.8vw, 3rem);
+    font-size: clamp(2rem, 3.8vw, 3.125rem);
     font-weight: 600;
     letter-spacing: -0.03em;
-    line-height: 1.1;
-    margin-bottom: 1.25rem;
-    color: var(--text);
-    max-width: 22ch;
+    line-height: 1.15;
+    margin-bottom: 1.35rem;
+    color: var(--text-bright);
+    max-width: 24ch;
 }
 
 .hero-lead {
@@ -130,14 +177,13 @@ h1 {
     font-weight: 300;
     color: var(--muted);
     line-height: 1.7;
-    margin-bottom: 2.5rem;
-    max-width: 52ch;
+    margin-bottom: 2.25rem;
+    max-width: 54ch;
 }
 
-
-/* ── 4. Form ─────────────────────────────────────────────────────── */
-#waitlist-form {
-    max-width: 500px;
+/* ── 4. Formulaire & RGPD ────────────────────────────────────────── */
+#capture-area {
+    max-width: 520px;
 }
 
 .form-row {
@@ -159,25 +205,25 @@ h1 {
     background: transparent;
     border: none;
     outline: none;
-    padding: 0.875rem 1rem;
+    padding: 0.95rem 1rem;
     font-family: var(--sans);
     font-size: 0.9375rem;
     font-weight: 300;
-    color: var(--text);
+    color: var(--text-bright);
 }
 
 #waitlist-form input[type="email"]::placeholder {
     color: var(--muted);
-    opacity: 0.65;
+    opacity: 0.7;
 }
 
 #waitlist-form button[type="submit"] {
     flex-shrink: 0;
     background: var(--copper);
-    color: #fff;
+    color: #ffffff;
     border: none;
     cursor: pointer;
-    padding: 0.875rem 1.375rem;
+    padding: 0.95rem 1.4rem;
     font-family: var(--sans);
     font-size: 0.875rem;
     font-weight: 600;
@@ -192,15 +238,54 @@ h1 {
 }
 
 #waitlist-form button[type="submit"]:disabled {
-    opacity: 0.5;
+    opacity: 0.6;
     cursor: not-allowed;
+}
+
+/* Consentement RGPD / CNIL */
+.consent-block {
+    margin-top: 0.85rem;
+}
+
+.consent-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: 0.785rem;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.45;
+    cursor: pointer;
+}
+
+.consent-label input[type="checkbox"] {
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+    accent-color: var(--copper);
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.inline-link {
+    display: inline;
+    color: var(--copper);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-size: inherit;
+    padding: 0;
+    cursor: pointer;
+}
+
+.inline-link:hover {
+    color: var(--copper-hi);
 }
 
 .form-error {
     display: block;
     margin-top: 0.6rem;
-    font-size: 0.875rem;
-    color: #E07575;
+    font-size: 0.825rem;
+    color: var(--error);
     min-height: 1.25em;
 }
 
@@ -208,34 +293,32 @@ h1 {
     display: flex;
     align-items: flex-start;
     gap: 0.625rem;
-    max-width: 500px;
-    padding: 0.875rem 1rem;
-    background: rgba(196, 150, 58, 0.07);
-    border: 1px solid rgba(196, 150, 58, 0.25);
+    padding: 1rem 1.15rem;
+    background: rgba(196, 150, 58, 0.08);
+    border: 1px solid rgba(196, 150, 58, 0.3);
     border-radius: 3px;
     font-size: 0.9375rem;
     font-weight: 300;
-    color: var(--text);
-    line-height: 1.55;
+    color: var(--text-bright);
+    line-height: 1.6;
 }
 
 .success-icon {
     color: var(--copper);
     font-weight: 600;
     flex-shrink: 0;
-    line-height: 1.55;
+    line-height: 1.6;
 }
 
 .form-note {
-    margin-top: 0.875rem;
-    font-size: 0.8rem;
+    margin-top: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 300;
     color: var(--muted);
-    opacity: 0.75;
+    opacity: 0.8;
 }
 
-
-/* ── 5. Topology diagram ─────────────────────────────────────────── */
+/* ── 5. Diagramme SVG de topologie ────────────────────────────────── */
 .hero-diagram {
     width: 400px;
 }
@@ -245,11 +328,6 @@ h1 {
     height: auto;
 }
 
-/*
- * Topology animation:
- * Lines draw themselves in, then nodes fade in.
- * This is the single orchestrated moment on the page.
- */
 .tl {
     stroke-dasharray: 250;
     stroke-dashoffset: 250;
@@ -274,52 +352,180 @@ h1 {
     .tn { opacity: 1; animation: none; }
 }
 
-
-/* ── 6. Specs section ────────────────────────────────────────────── */
-.specs {
-    padding: 5rem 0;
+/* ── 6. Sections Spécifications & Sécurité (Style Référentiel) ────── */
+.specs-section {
+    padding: 5.5rem 0;
+    border-bottom: 1px solid var(--border);
 }
 
-.specs-inner {
+.section-container {
     max-width: var(--max-w);
     margin: 0 auto;
     padding: 0 var(--pad-x);
 }
 
-.spec-item {
+.section-header {
+    margin-bottom: 3.5rem;
+    max-width: 650px;
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text-bright);
+    margin-bottom: 0.65rem;
+}
+
+.section-desc {
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+/* Format tableau technique (Pas de cartes génériques) */
+.specs-table {
+    display: flex;
+    flex-direction: column;
+}
+
+.spec-row {
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 220px 1fr;
     gap: 3rem;
     padding: 2.25rem 0;
     border-bottom: 1px solid var(--border);
     align-items: baseline;
 }
 
-.spec-item:first-child {
+.spec-row:first-child {
     border-top: 1px solid var(--border);
 }
 
-.spec-item h2 {
-    font-size: 0.9375rem;
-    font-weight: 600;
+.spec-meta {
+    font-family: var(--mono);
+    font-size: 0.825rem;
+    color: var(--copper);
     letter-spacing: -0.01em;
-    color: var(--text);
-    /* optical top-align with the paragraph */
-    padding-top: 0.125rem;
+    padding-top: 0.15rem;
 }
 
-.spec-item p {
+.spec-body h3 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.45rem;
+}
+
+.spec-body p {
     font-size: 0.9375rem;
     font-weight: 300;
     color: var(--muted);
     line-height: 1.7;
-    max-width: 60ch;
+    max-width: 64ch;
 }
 
-
-/* ── 7. Footer ───────────────────────────────────────────────────── */
-.site-footer {
+/* ── 7. FAQ Technique ────────────────────────────────────────────── */
+.faq-list {
+    display: flex;
+    flex-direction: column;
     border-top: 1px solid var(--border);
+}
+
+.faq-item {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.18s ease;
+}
+
+.faq-item[open] {
+    background: rgba(17, 24, 39, 0.4);
+}
+
+.faq-question {
+    padding: 1.5rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-bright);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+
+.faq-question::-webkit-details-marker {
+    display: none;
+}
+
+.faq-question::after {
+    content: "+";
+    font-family: var(--mono);
+    font-size: 1.15rem;
+    color: var(--copper);
+    font-weight: 400;
+    transition: transform 0.2s ease;
+}
+
+.faq-item[open] .faq-question::after {
+    content: "−";
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    padding: 0 0 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 68ch;
+}
+
+/* ── 8. Deuxième CTA de Bas de Page ──────────────────────────────── */
+.bottom-cta {
+    padding: 5rem 0;
+    background: rgba(17, 24, 39, 0.3);
+    border-bottom: 1px solid var(--border);
+}
+
+.bottom-cta-inner {
+    text-align: left;
+    max-width: var(--max-w);
+}
+
+.bottom-cta h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin-bottom: 0.5rem;
+}
+
+.bottom-cta p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-bottom: 1.75rem;
+}
+
+.btn-cta-anchor {
+    display: inline-block;
+    background: var(--copper);
+    color: #ffffff;
+    padding: 0.85rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 2px;
+    transition: background 0.18s ease;
+}
+
+.btn-cta-anchor:hover {
+    background: var(--copper-hi);
+}
+
+/* ── 9. Footer Institutionnel & Légal ────────────────────────────── */
+.site-footer {
+    padding: 2.5rem 0;
 }
 
 .footer-inner {
@@ -327,36 +533,178 @@ h1 {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 1.5rem;
     max-width: var(--max-w);
     margin: 0 auto;
-    padding: 1.75rem var(--pad-x);
+    padding: 0 var(--pad-x);
     font-size: 0.8125rem;
     font-weight: 300;
     color: var(--muted);
 }
 
-.footer-inner a {
+.footer-left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.footer-license {
     color: var(--muted);
+    font-size: 0.775rem;
+}
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.footer-link {
+    color: var(--muted);
+    font-size: 0.8125rem;
+    transition: color 0.18s ease;
+    padding: 0;
+}
+
+.footer-link:hover {
+    color: var(--text-bright);
+}
+
+/* ── 10. Modales Légales Natives (<dialog>) ──────────────────────── */
+.legal-dialog {
+    border: none;
+    background: transparent;
+    padding: 1.5rem;
+    max-width: 680px;
+    width: calc(100% - 2rem);
+    margin: auto;
+}
+
+.legal-dialog::backdrop {
+    background: rgba(4, 7, 14, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.dialog-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+}
+
+.dialog-header h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    letter-spacing: -0.01em;
+}
+
+.dialog-close {
+    font-size: 1.15rem;
+    color: var(--muted);
+    padding: 0.25rem 0.5rem;
     transition: color 0.18s ease;
 }
 
-.footer-inner a:hover {
-    color: var(--text);
+.dialog-close:hover {
+    color: var(--text-bright);
 }
 
+.dialog-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--muted);
+}
 
-/* ── 8. Accessibility ────────────────────────────────────────────── */
+.dialog-body h4 {
+    font-size: 0.925rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    margin: 1.25rem 0 0.4rem;
+}
+
+.dialog-body h4:first-child {
+    margin-top: 0;
+}
+
+.dialog-body p {
+    margin-bottom: 0.75rem;
+}
+
+.dialog-body ul {
+    margin-left: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.dialog-body li {
+    margin-bottom: 0.35rem;
+}
+
+.dialog-body a {
+    color: var(--copper);
+    text-decoration: underline;
+}
+
+.license-text {
+    font-family: var(--mono);
+    font-size: 0.785rem;
+    white-space: pre-wrap;
+    background: var(--bg);
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text);
+    line-height: 1.5;
+}
+
+.dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+}
+
+.dialog-btn {
+    background: rgba(29, 43, 58, 0.6);
+    color: var(--text-bright);
+    border: 1px solid var(--border);
+    padding: 0.5rem 1.25rem;
+    font-size: 0.825rem;
+    font-weight: 500;
+    border-radius: 2px;
+    transition: background 0.18s ease;
+}
+
+.dialog-btn:hover {
+    background: var(--border);
+}
+
+/* ── 11. Accessibilité & Focus Clavier ───────────────────────────── */
 :focus-visible {
     outline: 2px solid var(--copper);
     outline-offset: 3px;
     border-radius: 2px;
 }
 
-
-/* ── 9. Responsive ───────────────────────────────────────────────── */
-
-/* Tablet: drop the diagram, single-column hero */
+/* ── 12. Responsive Design ───────────────────────────────────────── */
 @media (max-width: 960px) {
     .hero-layout {
         grid-template-columns: 1fr;
@@ -371,22 +719,31 @@ h1 {
     .hero {
         min-height: auto;
     }
+
+    .spec-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
 }
 
-/* Mobile: stack form vertically, single-column specs */
-@media (max-width: 640px) {
+@media (max-width: 680px) {
     :root {
         --pad-x: 1.25rem;
     }
 
-    h1 {
-        /* Allow full column width on mobile */
-        max-width: none;
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.85rem;
+    }
+
+    .nav-menu {
+        flex-wrap: wrap;
+        gap: 1rem;
     }
 
     .form-row {
         flex-direction: column;
-        border-radius: 3px;
     }
 
     #waitlist-form button[type="submit"] {
@@ -395,14 +752,14 @@ h1 {
         text-align: center;
     }
 
-    .spec-item {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-        padding: 1.75rem 0;
-    }
-
     .footer-inner {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
     }
 }

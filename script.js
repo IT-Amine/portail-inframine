@@ -1,16 +1,57 @@
 /* =======================================================================
    INFRAMINE — script.js
+   Gestion des interactions : Inscription Waitlist RGPD, Modales Légales, FAQ
    ======================================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Current year in footer
+    // ── 1. Année dynamique dans le footer ──────────────────────────────
     const yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // ── Form handling ──────────────────────────────────────────────────
+    // ── 2. Modales Légales Natives (<dialog>) ──────────────────────────
+    const openModalButtons = document.querySelectorAll('.js-open-modal');
+    const closeModalButtons = document.querySelectorAll('.js-close-modal');
+
+    openModalButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const modalId = btn.getAttribute('data-modal');
+            const targetDialog = document.getElementById(modalId);
+            if (targetDialog && typeof targetDialog.showModal === 'function') {
+                targetDialog.showModal();
+            }
+        });
+    });
+
+    closeModalButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const dialog = btn.closest('dialog');
+            if (dialog && typeof dialog.close === 'function') {
+                dialog.close();
+            }
+        });
+    });
+
+    // Fermeture d'un dialogue au clic sur l'arrière-plan (backdrop)
+    document.querySelectorAll('dialog.legal-dialog').forEach(dialog => {
+        dialog.addEventListener('click', (e) => {
+            const rect = dialog.getBoundingClientRect();
+            const isInDialog = (
+                rect.top <= e.clientY &&
+                e.clientY <= rect.top + rect.height &&
+                rect.left <= e.clientX &&
+                e.clientX <= rect.left + rect.width
+            );
+            if (!isInDialog) {
+                dialog.close();
+            }
+        });
+    });
+
+    // ── 3. Gestion du formulaire d'inscription (RGPD / CNIL) ────────────
     const form        = document.getElementById('waitlist-form');
     const emailInput  = document.getElementById('email');
+    const consentBox  = document.getElementById('rgpd-consent');
     const submitBtn   = document.getElementById('submit-btn');
     const errorMsg    = document.getElementById('form-error');
     const successBox  = document.getElementById('form-success');
@@ -36,61 +77,68 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const email = emailInput ? emailInput.value.trim() : '';
 
+        // Validation Email
         if (!email) {
-            showError('Veuillez renseigner votre adresse e-mail.');
+            showError('Veuillez renseigner votre adresse e-mail professionnelle.');
             emailInput && emailInput.focus();
             return;
         }
 
         if (!isValidEmail(email)) {
-            showError('Adresse e-mail invalide. Vérifiez le format.');
+            showError('Format d\'adresse e-mail invalide.');
             emailInput && emailInput.focus();
             return;
         }
 
-        // Loading state — descriptive, no spinner icon
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Inscription en cours…';
+        // Vérification du consentement RGPD (Obligation légale Art. 6 & 7)
+        if (consentBox && !consentBox.checked) {
+            showError('Veuillez cocher la case de consentement pour valider votre demande (obligation RGPD).');
+            consentBox.focus();
+            return;
+        }
 
-        // ── Submission ─────────────────────────────────────────────────
+        // État de chargement sobre
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enregistrement sécurisé…';
+
+        // ── Transmission des données ───────────────────────────────────
+        // En production : connecter à un Cloudflare Worker avec preuve de consentement
         //
-        // Production: replace this with a fetch() to your Cloudflare Worker
-        // or a Formspree endpoint (e.g. https://formspree.io/f/YOUR_FORM_ID).
-        //
-        // Example:
-        //   fetch('https://formspree.io/f/YOUR_FORM_ID', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ email }),
-        //   }).then(res => res.ok ? handleSuccess(email) : handleFailure());
+        // payload = {
+        //    email: email,
+        //    consent_rgpd: true,
+        //    consent_timestamp: new Date().toISOString(),
+        //    user_agent: navigator.userAgent
+        // }
         //
         setTimeout(() => {
-            persistEmail(email);
+            persistLead(email);
             handleSuccess(email);
-        }, 750);
+        }, 650);
     });
 
     function handleSuccess(email) {
-        // Hide the form, show the confirmation
         form.hidden = true;
 
         if (successBox && successText) {
             successText.textContent =
-                `Inscription confirmée. Nous vous contacterons à ${email} lors de l'ouverture de l'accès bêta.`;
+                `Demande enregistrée. Nous vous contacterons à ${email} dès l'ouverture des accès bêta. Vos données sont protégées selon notre politique de confidentialité.`;
             successBox.hidden = false;
         }
     }
 
-    function persistEmail(email) {
-        // Local demo storage — remove or replace in production
+    function persistLead(email) {
         try {
             const list = JSON.parse(localStorage.getItem('inframine_waitlist') || '[]');
-            if (!list.includes(email)) {
-                list.push(email);
-                localStorage.setItem('inframine_waitlist', JSON.stringify(list));
-            }
+            const entry = {
+                email: email,
+                timestamp: new Date().toISOString(),
+                rgpd_compliant: true
+            };
+            list.push(entry);
+            localStorage.setItem('inframine_waitlist', JSON.stringify(list));
         } catch {
-            // localStorage unavailable (private browsing, etc.) — ignore
+            // Environnement sans stockage local
         }
     }
 
