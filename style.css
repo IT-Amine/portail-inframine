@@ -1010,6 +1010,35 @@ h1 {
     line-height: 1.6;
 }
 
+/* Wide variant for the full RGPD privacy modal */
+.dialog-card--wide {
+    width: min(720px, 92vw);
+}
+
+.sources-list {
+    margin: 0.35rem 0 0.75rem 1rem;
+    list-style: disc;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.sources-list a {
+    color: var(--copper);
+    text-decoration: underline;
+    font-size: 0.8125rem;
+    word-break: break-word;
+}
+
+.dialog-version {
+    margin-top: 1.25rem;
+    font-size: 0.75rem;
+    color: var(--muted-dim);
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+}
+
+
 .dialog-footer {
     display: flex;
     justify-content: flex-end;
